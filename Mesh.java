@@ -9,6 +9,12 @@ public class Mesh {
     triangles.addAll(triangles);
   }
 
+  public Mesh(Triangle[] triangles){
+    for(var triangle : triangles){
+      this.triangles.add(triangle);
+    }
+  }
+
   public void addTriangle(Triangle toAdd){
     this.triangles.add(toAdd);
   }

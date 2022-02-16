@@ -8,27 +8,25 @@ public class Point {
     this.z = z;
   }
 
-  public void setX(double x) {
-    this.x = x;
+  public Point normalize() {
+    var length = this.length();
+    x /= length;
+    y /= length;
+    z /= length;
+    return this;
   }
 
-  public void setY(double y) {
-    this.y = y;
+  public Point normalizeCopy() {
+    var length = this.length();
+    return new Point(x/length, y/length, z/length);
   }
 
-  public void setZ(double z) {
-    this.z = z;
+  public double length() {
+    return Math.sqrt(this.lengthSquared());
   }
 
-  public double getX() {
-    return x;
+  public double lengthSquared() {
+    return x * x + y * y + z * z;
   }
 
-  public double getY() {
-    return y;
-  }
-
-  public double getZ() {
-    return z;
-  }
 }
