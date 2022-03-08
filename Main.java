@@ -46,9 +46,9 @@ class Main{
     
     for(var y = 0; y < height; y++){
       for(var x = 0; x < width; x++){
-        var r = 255;
-        var g = 0;
-        var b = 0;
+        var r = 1.0f;
+        var g = x/(float)width;
+        var b = y/(float)height;
         
         outImage.setRGB(x, y, new Color(r,g,b).getRGB());
         
