@@ -19,23 +19,23 @@ class Main{
 
     //Create our geometry
 
-    var pointOne = new Point(0,0,0);
-    var pointTwo = new Point(1,0,0);
-    var pointThree = new Point(0,1,0);
+    var pointOne = new Vector3(0,0,0);
+    var pointTwo = new Vector3(1,0,0);
+    var pointThree = new Vector3(0,1,0);
     var triangle = new Triangle(pointOne, pointTwo, pointThree);
     var mesh = new Mesh(new Triangle[]{triangle});
     
 
     //Camera points
-    var cameraOrigin = new Point(0,0,-10);
-    var cameraLookAt = new Point(0,0,0);
-    var cameraLookUp = new Point(0,1,0);
+    var cameraOrigin = new Vector3(0,0,-10);
+    var cameraLookAt = new Vector3(0,0,0);
+    var cameraLookUp = new Vector3(0,1,0);
     var halfWidth = Math.PI/4;
 
     var camera = new Camera(cameraOrigin, cameraLookAt, cameraLookUp, halfWidth);
 
     //Light points
-    var light = new DirectionalLight(new Point(1,1,1).normalize(), 1);
+    var light = new DirectionalLight(new Vector3(1,1,1).normalize(), 1);
 
     var scene = new Scene(new DirectionalLight[]{light}, camera, new Mesh[]{mesh});
 
