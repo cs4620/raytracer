@@ -18,7 +18,7 @@ class Main {
 
       // Create our geometry
 
-      var pointOne = new Vector3(0, 0, 0);
+      var pointOne = new Vector3 (0, 0, 0);
       var pointTwo = new Vector3(1, 0, 0);
       var pointThree = new Vector3(0, 1, 0);
       var triangle = new Triangle(pointOne, pointTwo, pointThree);
