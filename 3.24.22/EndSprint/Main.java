@@ -22,7 +22,10 @@ class Main {
       var pointTwo = new Vector3(1, 0, 0);
       var pointThree = new Vector3(0, 1, 0);
       var triangle = new Triangle(pointOne, pointTwo, pointThree);
-      var mesh = new Mesh(new Triangle[] { triangle });
+
+      var Material = new Material(new Vector3(0,1,0));
+
+      var mesh = new Mesh(new Geometry[] { triangle }, Material);
 
       // Camera points
       var cameraOrigin = new Vector3(0, 0, -10);

@@ -27,6 +27,14 @@ public class Scene {
         float g = x/(float)outImage.getWidth();;
         float b = y/(float)outImage.getHeight();
         
+        for(var i = 0; i < meshes.length; i++){
+          var mesh = meshes[i];
+          var material = mesh.material;
+          r = material.color.x;
+          g = material.color.y;
+          b = material.color.z;
+        }
+
         colors[x][y] = new Vector3(r,g,b);
         
       }

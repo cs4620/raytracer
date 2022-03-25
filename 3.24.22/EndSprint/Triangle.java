@@ -1,4 +1,4 @@
-public class Triangle {
+public class Triangle implements Geometry{
 
   public Vector3[] points = new Vector3[3];
 

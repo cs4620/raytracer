@@ -1,4 +1,4 @@
-public class Plane {
+public class Plane implements Geometry{
   public Vector3 ABC;
   public float D;
 

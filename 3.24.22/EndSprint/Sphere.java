@@ -1,4 +1,4 @@
-public class Sphere {
+public class Sphere implements Geometry {
 
   public Vector3 center;
   public float radius;
