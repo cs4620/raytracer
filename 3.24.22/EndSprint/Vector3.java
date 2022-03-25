@@ -1,11 +1,15 @@
 public class Vector3 {
 
-  double x, y, z;
+  public float x, y, z;
 
-  public Vector3(double x, double y, double z) {
+  public Vector3(float x, float y, float z) {
     this.x = x;
     this.y = y;
     this.z = z;
+  }
+
+  public Vector3(double x, double y, double z){
+    this((float)x, (float)y, (float)z);
   }
 
   public Vector3 normalize() {
@@ -15,15 +19,15 @@ public class Vector3 {
 
   }
 
-  public double length() {
-    return Math.sqrt(this.lengthSquared());
+  public float length() {
+    return (float)Math.sqrt(this.lengthSquared());
   }
 
-  public double lengthSquared() {
+  public float lengthSquared() {
     return x * x + y * y + z * z;
   }
 
-  public double dot(Vector3 other){
+  public float dot(Vector3 other){
     return x*other.x + y*other.y+z*other.z;
   }
 
@@ -39,7 +43,7 @@ public class Vector3 {
     return x == other.x && y == other.y && z == other.z;
   }
 
-  public double absoluteDifference(Vector3 other){
+  public float absoluteDifference(Vector3 other){
     return Math.abs(x - other.x) + Math.abs(y - other.y) + Math.abs(z - other.z);
   }
 

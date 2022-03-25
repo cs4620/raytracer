@@ -77,10 +77,10 @@ class Main {
     if (v0.length() != 0)
       System.out.println("Error");
 
-    if (v1.length() != Math.sqrt(3))
+    if (v1.length() != (float)Math.sqrt(3))
       System.out.println("Error");
 
-    if (v2.length() != Math.sqrt(12))
+    if (v2.length() != (float)Math.sqrt(12))
       System.out.println("Error");
 
     // Test the squared length
@@ -141,7 +141,7 @@ class Main {
       System.out.println("Error");
     
     var line2 = new Line(v0, v1);
-    if(line2.A != -1/Math.sqrt(3) || line2.B != 1/Math.sqrt(3) || line2.C != 0 || line2.D != 0)
+    if(line2.A != -1/(float)Math.sqrt(3) || line2.B != 1/(float)Math.sqrt(3) || line2.C != 0 || line2.D != 0)
       System.out.println("Error");
 
     
