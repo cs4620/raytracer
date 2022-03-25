@@ -1,4 +1,4 @@
-public class Plane implements Geometry{
+public class Plane implements Geometry {
   public Vector3 ABC;
   public float D;
 
@@ -8,12 +8,13 @@ public class Plane implements Geometry{
   }
 
   @Override
-  public float intersect(Ray ray) {
-    
-    float numerator = -D+-ABC.dot(ray.origin);
+  public TAndNormal intersect(Ray ray) {
+
+    float numerator = -D + -ABC.dot(ray.origin);
     float denominator = ABC.dot(ray.direction);
-    float result = numerator/denominator;
-    
-    return result;
+    float result = numerator / denominator;
+
+    return new TAndNormal(
+        result, ABC);
   }
 }

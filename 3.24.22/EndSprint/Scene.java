@@ -25,11 +25,9 @@ public class Scene {
         float xPercent = x / (float) outImage.getWidth();
         float yPercent = y / (float) outImage.getHeight();
 
-        
-        
         float xWeight = xPercent * 2 - 1;
         float yWeight = yPercent * 2 - 1;
-        //Flip so positive y is up
+        // Flip so positive y is up
         yWeight *= -1;
 
         Vector3 up = camera.lookUp;
@@ -47,6 +45,7 @@ public class Scene {
 
         float closestDistance = Float.MAX_VALUE;
         Vector3 closestColor = null;
+        Vector3 closestNormal = null;
 
         for (var i = 0; i < meshes.length; i++) {
           var mesh = meshes[i];
@@ -58,19 +57,24 @@ public class Scene {
 
           // Now do the ray cast.
 
-          float t = geometry.intersect(ray);
-          if (t <= 0)
+          TAndNormal tn = geometry.intersect(ray);
+          if (tn.t <= 0)
             continue;
-          if (t < closestDistance) {
-            closestDistance = t;
+          if (tn.t < closestDistance) {
+            closestDistance = tn.t;
+            closestNormal = tn.normal;
             closestColor = new Vector3(r, g, b);
           }
         }
 
         if (closestColor == null)
           colors[x][y] = new Vector3(0, 0, 0);
-        else
-          colors[x][y] = closestColor;
+        else {
+          float strength = closestNormal.dot(new Vector3(0, 1, 0));
+          if (strength < 0)
+            strength = 0;
+          colors[x][y] = closestColor.scale(strength);
+        }
 
       }
     }

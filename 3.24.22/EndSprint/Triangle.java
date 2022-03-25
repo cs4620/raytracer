@@ -41,9 +41,9 @@ public class Triangle implements Geometry{
   }
 
   @Override
-  public float intersect(Ray ray) {
+  public TAndNormal intersect(Ray ray) {
     // TODO Auto-generated method stub
-    return 0;
+    return null;
   }
 
   

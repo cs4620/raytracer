@@ -1,5 +1,5 @@
 public interface Geometry {
 
-  float intersect(Ray ray);
+  TAndNormal intersect(Ray ray);
   
 }
