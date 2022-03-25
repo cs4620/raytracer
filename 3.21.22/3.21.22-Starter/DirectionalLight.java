@@ -1,9 +1,9 @@
 public class DirectionalLight {
 
-  public Point directionToLight;
+  public Vector3 directionToLight;
   public double intensity;
 
-  public DirectionalLight(Point directionToLight, double intensity){
+  public DirectionalLight(Vector3 directionToLight, double intensity){
     this.directionToLight = directionToLight;
     this.intensity = intensity;
   }

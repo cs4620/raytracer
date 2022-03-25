@@ -1,42 +1,42 @@
 public class Triangle {
 
-  public Point[] points = new Point[3];
+  public Vector3[] points = new Vector3[3];
 
-  public Triangle(Point[] points){
+  public Triangle(Vector3[] points){
     for(var i = 0; i < 3; i++){
       this.points[i] = points[i];
     }
   }
 
-  public Triangle(Point one, Point two, Point three){
+  public Triangle(Vector3 one, Vector3 two, Vector3 three){
     this.points[0] = one;
     this.points[1] = two;
     this.points[2] = three;
   }
 
-  public Point get(int index){
+  public Vector3 get(int index){
     return this.points[index];
   }
 
-  public Point getOne(){
+  public Vector3 getOne(){
     return this.points[0];
   }
   
-  public Point getTwo(){
+  public Vector3 getTwo(){
     return this.points[1];
   }
-  public Point getThree(){
+  public Vector3 getThree(){
     return this.points[2];
   }
 
-  public void setOne(Point one){
+  public void setOne(Vector3 one){
     this.points[0] = one;
   }
   
-  public void setTwo(Point two){
+  public void setTwo(Vector3 two){
     this.points[1] = two;
   }
-  public void setThree(Point three){
+  public void setThree(Vector3 three){
     this.points[2] = three;
   }
 
