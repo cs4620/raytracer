@@ -6,4 +6,14 @@ public class Plane implements Geometry{
     this.ABC = ABC;
     this.D = D;
   }
+
+  @Override
+  public float intersect(Ray ray) {
+    
+    float numerator = -D+-ABC.dot(ray.origin);
+    float denominator = ABC.dot(ray.direction);
+    float result = numerator/denominator;
+    
+    return result;
+  }
 }

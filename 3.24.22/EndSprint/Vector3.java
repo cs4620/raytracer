@@ -63,4 +63,8 @@ public class Vector3 {
     return new Vector3(-x, -y, -z);
   }
 
+  public Vector3 scale(float scale){
+    return new Vector3(x*scale, y*scale, z*scale);
+  }
+
 }

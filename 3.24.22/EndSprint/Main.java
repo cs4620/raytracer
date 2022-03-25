@@ -22,13 +22,23 @@ class Main {
       var pointTwo = new Vector3(1, 0, 0);
       var pointThree = new Vector3(0, 1, 0);
       var triangle = new Triangle(pointOne, pointTwo, pointThree);
+      
+      var plane1 = new Plane(new Vector3(0,0,-1), 1);
+      var plane2 = new Plane(new Vector3(0,-1/Math.sqrt(2),-1/Math.sqrt(2)), 1);
 
-      var Material = new Material(new Vector3(0,1,0));
+      var sphere1 = new Sphere(new Vector3(0,0,0), .5f);
 
-      var mesh = new Mesh(new Geometry[] { triangle }, Material);
+      var material1 = new Material(new Vector3(0,1,0));
+      var material2 = new Material(new Vector3(1,0,0));
+      var material3 = new Material(new Vector3(0,0,1));
+
+      var planeMesh1 = new Mesh(plane1, material1);
+      var planeMesh2 = new Mesh(plane2, material2);
+
+      var sphereMesh1 = new Mesh(sphere1, material3);
 
       // Camera points
-      var cameraOrigin = new Vector3(0, 0, -10);
+      var cameraOrigin = new Vector3(0, 0, -1);
       var cameraLookAt = new Vector3(0, 0, 0);
       var cameraLookUp = new Vector3(0, 1, 0);
       var halfWidth = Math.PI / 4;
@@ -38,7 +48,11 @@ class Main {
       // Light points
       var light = new DirectionalLight(new Vector3(1, 1, 1).normalize(), 1);
 
-      var scene = new Scene(new DirectionalLight[] { light }, camera, new Mesh[] { mesh });
+      var scene = new Scene(new DirectionalLight[] { light }, camera, new Mesh[] {
+         planeMesh1, 
+         planeMesh2,
+         sphereMesh1, 
+        });
 
       scene.render(outImage);
 
@@ -137,15 +151,20 @@ class Main {
     if (!v1.negate().equals(new Vector3(-1, -1, -1)))
       System.out.println("Error");
 
+      //Test scaling
+      if(!v1.scale(2).equals(new Vector3(2,2,2)))
+        System.out.println("Error");
 
-    //Test lines
-    var line = new Line(1,2,3,4);
-    if(line.A != 1 || line.B != 2 || line.C != 3 || line.D != 4)
-      System.out.println("Error");
-    
-    var line2 = new Line(v0, v1);
-    if(line2.A != -1/(float)Math.sqrt(3) || line2.B != 1/(float)Math.sqrt(3) || line2.C != 0 || line2.D != 0)
-      System.out.println("Error");
+
+      //Test ray/plane intersections
+      Ray ray = new Ray(new Vector3(0,0,-1), new Vector3(0,0,1));
+      Plane plane = new Plane(new Vector3(0,0,-1), 1);
+      float t = plane.intersect(ray);
+
+      if(t != 2)
+      {
+        System.out.println("Error");
+      }
 
     
 

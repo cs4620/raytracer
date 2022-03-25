@@ -7,4 +7,10 @@ public class Sphere implements Geometry {
     this.center = center;
     this.radius = radius;
   }
+
+  @Override
+  public float intersect(Ray ray) {
+    // TODO Auto-generated method stub
+    return 0;
+  }
 }

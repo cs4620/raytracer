@@ -40,5 +40,11 @@ public class Triangle implements Geometry{
     this.points[2] = three;
   }
 
+  @Override
+  public float intersect(Ray ray) {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
   
 }
