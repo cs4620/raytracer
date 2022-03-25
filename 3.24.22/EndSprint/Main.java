@@ -39,17 +39,6 @@ class Main {
 
       scene.render(outImage);
 
-      for (var y = 0; y < height; y++) {
-        for (var x = 0; x < width; x++) {
-          var r = 1.0f;
-          var g = x / (float) width;
-          var b = y / (float) height;
-
-          outImage.setRGB(x, y, new Color(r, g, b).getRGB());
-
-        }
-      }
-
       ImageIO.write(outImage, "png", new File("./out/out.png"));
 
       long endTime = System.currentTimeMillis();

@@ -1,5 +1,4 @@
-public class Camera {
-
+public class Camera{
   public Vector3 origin;
   public Vector3 lookAt;
   public Vector3 lookUp;

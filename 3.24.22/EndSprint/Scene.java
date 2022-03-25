@@ -16,9 +16,9 @@ public class Scene {
   public void render(BufferedImage outImage) {
     for(var y = 0; y < outImage.getHeight(); y++){
       for(var x = 0; x < outImage.getWidth(); x++){
-        var r = 255;
-        var g = 0;
-        var b = 0;
+        float r = 1.0f;
+        float g = x/(float)outImage.getWidth();;
+        float b = y/(float)outImage.getHeight();
         
         outImage.setRGB(x, y, new Color(r,g,b).getRGB());
         
