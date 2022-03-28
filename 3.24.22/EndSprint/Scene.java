@@ -70,10 +70,8 @@ public class Scene {
         if (closestColor == null)
           colors[x][y] = new Vector3(0, 0, 0);
         else {
-          float strength = closestNormal.dot(new Vector3(0, 1, 0));
-          if (strength < 0)
-            strength = 0;
-          colors[x][y] = closestColor.scale(strength);
+          
+          colors[x][y] = closestColor;
         }
 
       }
