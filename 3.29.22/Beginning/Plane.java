@@ -10,7 +10,9 @@ public class Plane implements Geometry {
   @Override
   public TAndNormal intersect(Ray ray) {
 
-    // TODO Auto-generated method stub
-    return null;
+    var num = -D-ABC.dot(ray.origin);
+    var den = ABC.dot(ray.direction);
+    var T = num/den;
+    return new TAndNormal(T, ABC);
   }
 }

@@ -50,7 +50,7 @@ class Main {
 
       var scene = new Scene(new DirectionalLight[] { light }, camera, new Mesh[] {
          planeMesh1, 
-         
+         planeMesh2,
         });
 
       scene.render(outImage);
@@ -156,13 +156,17 @@ class Main {
 
 
       //Test ray/plane intersections
-      Ray ray = new Ray(new Vector3(0,0,-1), new Vector3(0,0,1));
-      Plane plane = new Plane(new Vector3(0,0,-1), 1);
-      float t = plane.intersect(ray).t;
+    //   try{
+    //   Ray ray = new Ray(new Vector3(0,0,-1), new Vector3(0,0,1));
+    //   Plane plane = new Plane(new Vector3(0,0,-1), 1);
+    //   float t = plane.intersect(ray).t;
 
-      if(t != 2)
-      {
-        System.out.println("Error");
-      }
+    //   if(t != 2)
+    //   {
+    //     System.out.println("Error");
+    //   }
+    // }catch (Exception e){
+    //   System.out.println("Error");
+    // }
   }
 }

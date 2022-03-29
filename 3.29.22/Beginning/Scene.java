@@ -22,9 +22,26 @@ public class Scene {
 
     for (var y = 0; y < outImage.getHeight(); y++) {
       for (var x = 0; x < outImage.getWidth(); x++) {
+
+        var origin = camera.origin;
+        var lookAt = camera.lookAt;
+        var lookUp = camera.lookUp;
+        var lookDirection = lookAt.minus(origin).normalize();
+        var lookRight = lookUp.cross(lookDirection).normalize();
+        
+        var percentX = x/(float)outImage.getWidth();
+        var percentY = y/(float)outImage.getHeight();
+        var scaleX = percentX*2 - 1;
+        var scaleY = percentY*2-1;
+
+        //Invert because math and screens are opposite
+        scaleY *= -1;
+
+        var viewingPlanePoint = lookAt.plus(lookRight.scale(scaleX)).plus(lookUp.scale(scaleY));
+        var direction = viewingPlanePoint.minus(origin).normalize();
         
 
-        Ray ray = new Ray(new Vector3(0,0,1), new Vector3(0,0,-1));
+        Ray ray = new Ray(origin, direction);
 
         float closestDistance = Float.MAX_VALUE;
         Vector3 closestColor = null;

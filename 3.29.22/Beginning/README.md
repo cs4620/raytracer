@@ -33,5 +33,49 @@ ${-b\pm\sqrt{b^2-4ac}}/{2a}$
 ${-(2d(o-c))\pm\sqrt{(2d(o-c))^2-4(d\cdot d)((o-e)\cdot(o-c)-R^2))}}/{2(d\cdot d)}$
 
 
+Here is the same math, as done in class:
 
+Definition of a sphere
+$(p-c)^2=R^2$
+
+Definition of a ray
+$r_o+r_d\cdot t$
+
+Combining
+$(r_o+r_d\cdot t - c)^2-R^2=0$
+
+$(r_o+r_d\cdot t - c)\cdot (r_o+r_d\cdot t - c)-R^2=0$
+
+$(r_o+r_d\cdot t - c)\cdot (r_o+r_d\cdot t - c)-R^2=0$
+
+$r_o^2+r_d^2\cdot t^2+c^2 +2r_or_d\cdot t + -(2r_oc) + -r_dtc - R^2=0$
+
+$r_d^2\cdot t^2 + t(2r_or_d -2r_dc)+r_o^2+c^2-2r_oc-R^2=0$
+
+$A=r_d^2$
+
+$B=2r_or_d -2r_dc$
+
+Simplify B
+
+$B=2r_d(r_o-c)$
+
+$C=r_o^2+c^2-2r_oc-R^2$
+
+Simplify C
+
+$C=(r_o-c)^2-R^2$
+
+Proof:
+$(r_o-c)^2=?r_o^2+c^2-2r_oc$
+
+$C=(r_o-c)^2-R^2$
+
+
+
+
+Quadratic Formula
+$(-B\pm \sqrt(B^2-4AC))/(2A)$
+
+$(-(2r_or_d -2r_dc)\pm \sqrt((2r_or_d -2r_dc)^2-4r_d^2((r_o-c)^2-R^2)))/(2r_d^2)$
 
