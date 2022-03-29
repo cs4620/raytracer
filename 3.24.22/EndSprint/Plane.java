@@ -10,11 +10,7 @@ public class Plane implements Geometry {
   @Override
   public TAndNormal intersect(Ray ray) {
 
-    float numerator = -D + -ABC.dot(ray.origin);
-    float denominator = ABC.dot(ray.direction);
-    float result = numerator / denominator;
-
-    return new TAndNormal(
-        result, ABC);
+    // TODO Auto-generated method stub
+    return null;
   }
 }
