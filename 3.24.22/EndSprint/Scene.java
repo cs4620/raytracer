@@ -22,26 +22,9 @@ public class Scene {
 
     for (var y = 0; y < outImage.getHeight(); y++) {
       for (var x = 0; x < outImage.getWidth(); x++) {
-        float xPercent = x / (float) outImage.getWidth();
-        float yPercent = y / (float) outImage.getHeight();
+        
 
-        float xWeight = xPercent * 2 - 1;
-        float yWeight = yPercent * 2 - 1;
-        // Flip so positive y is up
-        yWeight *= -1;
-
-        Vector3 up = camera.lookUp;
-        Vector3 forward = camera.lookAt.minus(camera.origin).normalize();
-        Vector3 right = up.cross(forward);
-
-        Vector3 rightAdd = right.scale(xWeight);
-        Vector3 upAdd = up.scale(yWeight);
-        Vector3 pixelWorldLocation = camera.lookAt.plus(rightAdd).plus(upAdd);
-        Vector3 rayDirection = pixelWorldLocation.minus(camera.origin).normalize();
-
-        Vector3 rayOrigin = this.camera.origin;
-
-        Ray ray = new Ray(rayOrigin, rayDirection);
+        Ray ray = new Ray(new Vector3(0,0,1), new Vector3(0,0,-1));
 
         float closestDistance = Float.MAX_VALUE;
         Vector3 closestColor = null;
