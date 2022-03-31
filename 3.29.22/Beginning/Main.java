@@ -51,6 +51,7 @@ class Main {
       var scene = new Scene(new DirectionalLight[] { light }, camera, new Mesh[] {
          planeMesh1, 
          planeMesh2,
+         sphereMesh1,
         });
 
       scene.render(outImage);
