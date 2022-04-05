@@ -18,24 +18,25 @@ class Main {
 
       // Create our geometry
 
-      var pointOne = new Vector3 (0, 0, 0);
+      var pointOne = new Vector3(0, 0, 0);
       var pointTwo = new Vector3(1, 0, 0);
       var pointThree = new Vector3(0, 1, 0);
       var triangle = new Triangle(pointOne, pointTwo, pointThree);
-      
-      var plane1 = new Plane(new Vector3(0,0,-1), 1);
-      var plane2 = new Plane(new Vector3(0,-1/Math.sqrt(2),-1/Math.sqrt(2)), 1);
 
-      var sphere1 = new Sphere(new Vector3(0,0,0), .5f);
+      var plane1 = new Plane(new Vector3(0, 0, -1), 1);
+      var plane2 = new Plane(new Vector3(0, -1 / Math.sqrt(2), -1 / Math.sqrt(2)), 1);
 
-      var material1 = new SolidMaterial(new Vector3(0,1,0));
-      var material2 = new SolidMaterial(new Vector3(1,0,0));
-      var material3 = new SolidMaterial(new Vector3(0,0,1));
+      var sphere1 = new Sphere(new Vector3(0, 0, 0), .5f);
+
+      var material1 = new SolidMaterial(new Vector3(0, 1, 0));
+      var material2 = new SolidMaterial(new Vector3(1, 0, 0));
+      var material3 = new SolidMaterial(new Vector3(0, 0, 1));
+      var phong = new PhongMaterial(new Vector3(0, 0, 1));
 
       var planeMesh1 = new Mesh(plane1, material1);
       var planeMesh2 = new Mesh(plane2, material2);
 
-      var sphereMesh1 = new Mesh(sphere1, material3);
+      var sphereMesh1 = new Mesh(sphere1, phong);
 
       // Camera points
       var cameraOrigin = new Vector3(0, 0, -1);
@@ -49,10 +50,10 @@ class Main {
       var light = new DirectionalLight(new Vector3(1, 1, 1).normalize(), 1);
 
       var scene = new Scene(new DirectionalLight[] { light }, camera, new Mesh[] {
-         planeMesh1, 
-         planeMesh2,
-         sphereMesh1,
-        });
+          // planeMesh1,
+          // planeMesh2,
+          sphereMesh1,
+      });
 
       scene.render(outImage);
 
@@ -94,10 +95,10 @@ class Main {
     if (v0.length() != 0)
       System.out.println("Error");
 
-    if (v1.length() != (float)Math.sqrt(3))
+    if (v1.length() != (float) Math.sqrt(3))
       System.out.println("Error");
 
-    if (v2.length() != (float)Math.sqrt(12))
+    if (v2.length() != (float) Math.sqrt(12))
       System.out.println("Error");
 
     // Test the squared length
@@ -151,23 +152,37 @@ class Main {
     if (!v1.negate().equals(new Vector3(-1, -1, -1)))
       System.out.println("Error");
 
-      //Test scaling
-      if(!v1.scale(2).equals(new Vector3(2,2,2)))
-        System.out.println("Error");
+    // Test scaling
+    if (!v1.scale(2).equals(new Vector3(2, 2, 2)))
+      System.out.println("Error");
 
+    // Test reflections
+    var normal = new Vector3(0, 0, 1);
+    var toLight = new Vector3(1 / Math.sqrt(2), 0, 1 / Math.sqrt(2));
+    var reflection = toLight.reflect(normal);
+    if (!reflection.nearlyEquals(
+        new Vector3(-1 / Math.sqrt(2), 0, 1 / Math.sqrt(2))))
+      System.err.println("Bad Reflection");
 
-      //Test ray/plane intersections
-    //   try{
-    //   Ray ray = new Ray(new Vector3(0,0,-1), new Vector3(0,0,1));
-    //   Plane plane = new Plane(new Vector3(0,0,-1), 1);
-    //   float t = plane.intersect(ray).t;
+    normal = new Vector3(1, 0, 0);
+    toLight = new Vector3(0,0,1);
+    reflection = toLight.reflect(normal);
+    if (!reflection.nearlyEquals(
+        new Vector3(0, 0, -1)))
+      System.err.println("Bad Reflection");
 
-    //   if(t != 2)
-    //   {
-    //     System.out.println("Error");
-    //   }
+    // Test ray/plane intersections
+    // try{
+    // Ray ray = new Ray(new Vector3(0,0,-1), new Vector3(0,0,1));
+    // Plane plane = new Plane(new Vector3(0,0,-1), 1);
+    // float t = plane.intersect(ray).t;
+
+    // if(t != 2)
+    // {
+    // System.out.println("Error");
+    // }
     // }catch (Exception e){
-    //   System.out.println("Error");
+    // System.out.println("Error");
     // }
   }
 }

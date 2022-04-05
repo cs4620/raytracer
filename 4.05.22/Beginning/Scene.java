@@ -22,6 +22,9 @@ public class Scene {
 
     for (var y = 0; y < outImage.getHeight(); y++) {
       for (var x = 0; x < outImage.getWidth(); x++) {
+        if(y == 64 && x == 64){
+          System.out.println("Stop");
+        }
 
         var origin = camera.origin;
         var lookAt = camera.lookAt;
@@ -64,8 +67,9 @@ public class Scene {
             closestDistance = tn.t;
             closestNormal = tn.normal;
             //Now write a shader for this collision
-
-            closestColor = material.Shade(ray.origin.plus(ray.direction.scale(tn.t)), closestNormal, lights[0]);
+            var closestPoint = ray.origin.plus(ray.direction.scale(tn.t));
+            var fromDirection = ray.origin.minus(closestPoint).normalize();
+            closestColor = material.Shade(fromDirection, closestPoint, closestNormal, lights[0]);
           }
         }
 

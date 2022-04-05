@@ -12,6 +12,12 @@ public class Vector3 {
     this((float)x, (float)y, (float)z);
   }
 
+  public Vector3(Vector3 vector3) {
+    this.x = vector3.x;
+    this.y = vector3.y;
+    this.z = vector3.z;
+  }
+
   public Vector3 normalize() {
     var length = this.length();
     var toReturn = new Vector3(x/length, y/length, z/length);
@@ -65,6 +71,22 @@ public class Vector3 {
 
   public Vector3 scale(float scale){
     return new Vector3(x*scale, y*scale, z*scale);
+  }
+
+  public Vector3 clamp(float min, float max){
+    Vector3 toReturn = new Vector3(this);
+    toReturn.x = Math.max(0, Math.min(1, toReturn.x));
+    toReturn.y = Math.max(0, Math.min(1, toReturn.y));
+    toReturn.z = Math.max(0, Math.min(1, toReturn.z));
+
+    return toReturn;
+  }
+
+  public Vector3 reflect(Vector3 about){
+    var dot = this.dot(about);
+    var negation = this.scale(-1);
+    var toReturn = negation.plus(about.scale(2*dot));
+    return toReturn;
   }
 
 }
