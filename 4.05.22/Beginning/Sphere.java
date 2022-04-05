@@ -19,8 +19,8 @@ public class Sphere implements Geometry {
     if (inSqrt < 0)
       return new TAndNormal(-1, null);
 
-    float num1 = -2 * B - (float) Math.sqrt(B * B - 4 * A * C);
-    float num2 = -2 * B + (float) Math.sqrt(B * B - 4 * A * C);
+    float num1 = -1 * B - (float) Math.sqrt(B * B - 4 * A * C);
+    float num2 = -1 * B + (float) Math.sqrt(B * B - 4 * A * C);
     float den = 2 * A;
     float t1 = num1 / den;
     float t2 = num2 / den;

@@ -20,9 +20,9 @@ public class PhongMaterial implements Material{
 
     var reflection = directionalLight.directionToLight.reflect(normal);
     var specularStrength = Math.max(0, reflection.dot(fromDirection));
-    specularStrength = (float)Math.pow(specularStrength, 2);
+    specularStrength = (float)Math.pow(specularStrength, 4);
 
-    
+
     var specular = new Vector3(1f, 1f, 1f).scale(specularStrength);
 
     var finalColor =  ambient.plus(diffuse).plus(specular);

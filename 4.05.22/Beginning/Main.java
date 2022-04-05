@@ -47,7 +47,7 @@ class Main {
       var camera = new Camera(cameraOrigin, cameraLookAt, cameraLookUp, halfWidth);
 
       // Light points
-      var light = new DirectionalLight(new Vector3(1, 1, 1).normalize(), 1);
+      var light = new DirectionalLight(new Vector3(1, 1, -1).normalize(), 1);
 
       var scene = new Scene(new DirectionalLight[] { light }, camera, new Mesh[] {
           // planeMesh1,

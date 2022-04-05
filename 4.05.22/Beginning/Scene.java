@@ -1,6 +1,4 @@
 import java.awt.image.BufferedImage;
-import java.util.*;
-import java.util.List;
 import java.awt.*;
 
 public class Scene {
@@ -22,63 +20,76 @@ public class Scene {
 
     for (var y = 0; y < outImage.getHeight(); y++) {
       for (var x = 0; x < outImage.getWidth(); x++) {
-        if(y == 64 && x == 64){
-          System.out.println("Stop");
-        }
+        // if (y == 64 && x == 64) {
+        // System.out.println("Stop");
+        // }
+        this.colors[x][y] = new Vector3(0, 0, 0);
+
+        var samples = 100;
 
         var origin = camera.origin;
         var lookAt = camera.lookAt;
         var lookUp = camera.lookUp;
         var lookDirection = lookAt.minus(origin).normalize();
         var lookRight = lookUp.cross(lookDirection).normalize();
-        
-        var percentX = x/(float)outImage.getWidth();
-        var percentY = y/(float)outImage.getHeight();
-        var scaleX = percentX*2 - 1;
-        var scaleY = percentY*2-1;
 
-        //Invert because math and screens are opposite
+        var percentX = x / (float) outImage.getWidth();
+        var percentY = y / (float) outImage.getHeight();
+        var scaleX = percentX * 2 - 1;
+        var scaleY = percentY * 2 - 1;
+
+        // Invert because math and screens are opposite
         scaleY *= -1;
 
         var viewingPlanePoint = lookAt.plus(lookRight.scale(scaleX)).plus(lookUp.scale(scaleY));
-        var direction = viewingPlanePoint.minus(origin).normalize();
-        
 
-        Ray ray = new Ray(origin, direction);
+        var pixelWidth = 2*lookRight.length() / outImage.getWidth();
 
-        float closestDistance = Float.MAX_VALUE;
-        Vector3 closestColor = null;
-        Vector3 closestNormal = null;
+        for (var s = 0; s < samples; s++) {
 
-        for (var i = 0; i < meshes.length; i++) {
-          var mesh = meshes[i];
-          var material = mesh.material;
-          var geometry = mesh.geometry;
-          // float r = material.color.x;
-          // float g = material.color.y;
-          // float b = material.color.z;
+          var direction = viewingPlanePoint.minus(origin).normalize();
+          var jx = Math.random()*2-1;
+          var jy = Math.random()*2-1;
+          var jz = Math.random()*2-1;
 
-          // Now do the ray cast.
+          var jitter = new Vector3(jx,jy,jz).scale(.5f).scale(pixelWidth);
+          direction = direction.plus(jitter).normalize();
 
-          TAndNormal tn = geometry.intersect(ray);
-          if (tn.t <= 0)
-            continue;
-          if (tn.t < closestDistance) {
-            closestDistance = tn.t;
-            closestNormal = tn.normal;
-            //Now write a shader for this collision
-            var closestPoint = ray.origin.plus(ray.direction.scale(tn.t));
-            var fromDirection = ray.origin.minus(closestPoint).normalize();
-            closestColor = material.Shade(fromDirection, closestPoint, closestNormal, lights[0]);
+
+
+          Ray ray = new Ray(origin, direction);
+
+          float closestDistance = Float.MAX_VALUE;
+          Vector3 closestColor = null;
+          Vector3 closestNormal = null;
+
+          for (var i = 0; i < meshes.length; i++) {
+            var mesh = meshes[i];
+            var material = mesh.material;
+            var geometry = mesh.geometry;
+
+            // Now do the ray cast.
+
+            TAndNormal tn = geometry.intersect(ray);
+            if (tn.t <= 0)
+              continue;
+            if (tn.t < closestDistance) {
+              closestDistance = tn.t;
+              closestNormal = tn.normal;
+              // Do the shading
+              var closestPoint = ray.origin.plus(ray.direction.scale(tn.t));
+              var fromDirection = ray.origin.minus(closestPoint).normalize();
+              closestColor = material.Shade(fromDirection, closestPoint, closestNormal, lights[0]);
+            }
+          }
+
+          if (closestColor == null)
+            colors[x][y] = colors[x][y].plus(new Vector3(0, 0, 0));
+          else {
+            colors[x][y] = colors[x][y].plus(closestColor);
           }
         }
-
-        if (closestColor == null)
-          colors[x][y] = new Vector3(0, 0, 0);
-        else {
-          
-          colors[x][y] = closestColor;
-        }
+        colors[x][y] = colors[x][y].scale(1 / (float) samples);
 
       }
     }
