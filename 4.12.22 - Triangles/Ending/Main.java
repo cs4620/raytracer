@@ -63,7 +63,25 @@ class Main {
       try (BufferedReader br = new BufferedReader(new FileReader("./monkey.obj"))) {
         String line;
         while ((line = br.readLine()) != null) {
-          
+          if (line.startsWith("v ")) {
+            String[] parts = line.split(" ");
+            var x = Float.parseFloat(parts[1]);
+            var y = Float.parseFloat(parts[2]);
+            var z = Float.parseFloat(parts[3]);
+            Vector3 vertex = new Vector3(x, y, z);
+            vertices.add(vertex);
+          } else if (line.startsWith("f ")) {
+            String[] firstParts = line.split(" ");
+            
+            var indexOne = Integer.parseInt(firstParts[1].split("/")[0]);
+            var indexTwo = Integer.parseInt(firstParts[2].split("/")[0]);
+            var indexThree = Integer.parseInt(firstParts[3].split("/")[0]);
+            var one = vertices.get(indexOne - 1);
+            var two = vertices.get(indexTwo - 1);
+            var three = vertices.get(indexThree - 1);
+            var objTriangle = new Triangle(one, two, three);
+            objTriangles.add(objTriangle);
+          }
         }
       }
       // We are done reading the obj file
@@ -75,13 +93,13 @@ class Main {
       }
 
       var scene = new Scene(new DirectionalLight[] { light }, camera,
-          new Mesh[] {
-          // planeMesh1,
-          // planeMesh2,
-          // sphereMesh1,
-          triangleMesh,
-          });
-          //allObjMeshes);
+          // new Mesh[] {
+          // // planeMesh1,
+          // // planeMesh2,
+          // // sphereMesh1,
+          // triangleMesh,
+          // }
+          allObjMeshes);
 
       scene.render(outImage);
 

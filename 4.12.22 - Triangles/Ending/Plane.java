@@ -30,6 +30,6 @@ public class Plane implements Geometry {
   }
 
   public float offset(Vector3 collision) {
-    return 0;
+    return this.ABC.dot(collision)+this.D;
   }
 }
