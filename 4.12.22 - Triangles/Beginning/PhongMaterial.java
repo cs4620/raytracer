@@ -5,6 +5,12 @@ public class PhongMaterial implements Material{
     this.color = color;
   }
   public Vector3 Shade(Vector3 fromDirection, Vector3 position, Vector3 normal, DirectionalLight directionalLight){
+    //Flip normals for double-sided triangles
+    if(normal.dot(fromDirection) < 0)
+    {
+      normal = normal.scale(-1);
+    }
+    
     var ambient = new Vector3(.1f, .1f, .1f);
 
     var diffuseStrength = normal.normalize().dot(directionalLight.directionToLight.normalize());

@@ -1,6 +1,11 @@
 import java.awt.image.*;
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -49,14 +54,52 @@ class Main {
       var camera = new Camera(cameraOrigin, cameraLookAt, cameraLookUp, halfWidth);
 
       // Light points
-      var light = new DirectionalLight(new Vector3(1, 1, -1).normalize(), 1);
+      // var light = new DirectionalLight(new Vector3(1, 1, -1).normalize(), 1);
+      var light = new DirectionalLight(new Vector3(0, 0, -1).normalize(), 1);
 
-      var scene = new Scene(new DirectionalLight[] { light }, camera, new Mesh[] {
-          // planeMesh1,
-          // planeMesh2,
-          //sphereMesh1,
-          triangleMesh,
-      });
+      // Load an obj
+      List<Triangle> objTriangles = new ArrayList<>();
+      List<Vector3> vertices = new ArrayList<>();
+      try (BufferedReader br = new BufferedReader(new FileReader("./monkey.obj"))) {
+        String line;
+        while ((line = br.readLine()) != null) {
+          if (line.startsWith("v ")) {
+            String[] parts = line.split(" ");
+            var x = Float.parseFloat(parts[1]);
+            var y = Float.parseFloat(parts[2]);
+            var z = Float.parseFloat(parts[3]);
+            Vector3 vertex = new Vector3(x, y, z);
+            vertices.add(vertex);
+          } else if (line.startsWith("f ")) {
+            String[] firstParts = line.split(" ");
+            
+            var indexOne = Integer.parseInt(firstParts[1].split("/")[0]);
+            var indexTwo = Integer.parseInt(firstParts[2].split("/")[0]);
+            var indexThree = Integer.parseInt(firstParts[3].split("/")[0]);
+            var one = vertices.get(indexOne - 1);
+            var two = vertices.get(indexTwo - 1);
+            var three = vertices.get(indexThree - 1);
+            var objTriangle = new Triangle(one, two, three);
+            objTriangles.add(objTriangle);
+          }
+        }
+      }
+      // We are done reading the obj file
+      Triangle[] allObjTriangles = objTriangles.toArray(new Triangle[0]);
+      Mesh[] allObjMeshes = new Mesh[allObjTriangles.length];
+      for (var i = 0; i < allObjTriangles.length; i++) {
+        var mesh = new Mesh(allObjTriangles[i], phong);
+        allObjMeshes[i] = mesh;
+      }
+
+      var scene = new Scene(new DirectionalLight[] { light }, camera,
+          // new Mesh[] {
+          // // planeMesh1,
+          // // planeMesh2,
+          // // sphereMesh1,
+          // triangleMesh,
+          // }
+          allObjMeshes);
 
       scene.render(outImage);
 
@@ -168,21 +211,20 @@ class Main {
       System.err.println("Bad Reflection");
 
     normal = new Vector3(1, 0, 0);
-    toLight = new Vector3(0,0,1);
+    toLight = new Vector3(0, 0, 1);
     reflection = toLight.reflect(normal);
     if (!reflection.nearlyEquals(
         new Vector3(0, 0, -1)))
       System.err.println("Bad Reflection");
 
-
-    //Test planes from points
+    // Test planes from points
     Vector3[] points = new Vector3[3];
-    points[0] = new Vector3(0,0,0);
-    points[1] = new Vector3(1,0,0);
-    points[2] = new Vector3(0,1,0);
+    points[0] = new Vector3(0, 0, 0);
+    points[1] = new Vector3(1, 0, 0);
+    points[2] = new Vector3(0, 1, 0);
 
     Plane pointsPlane = new Plane(points);
-    if(!pointsPlane.ABC.equals(new Vector3(0,0,-1)) || pointsPlane.D != 0){
+    if (!pointsPlane.ABC.equals(new Vector3(0, 0, -1)) || pointsPlane.D != 0) {
       System.out.println("Bad plane points");
     }
 

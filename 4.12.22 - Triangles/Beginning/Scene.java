@@ -25,7 +25,7 @@ public class Scene {
         }
         this.colors[x][y] = new Vector3(0, 0, 0);
 
-        var samples = 1;
+        var samples = 5;
 
         var origin = camera.origin;
         var lookAt = camera.lookAt;
@@ -52,7 +52,7 @@ public class Scene {
           var jy = Math.random() * 2 - 1;
           var jz = Math.random() * 2 - 1;
 
-          var jitter = new Vector3(jx, jy, jz).scale(0f).scale(pixelWidth);
+          var jitter = new Vector3(jx, jy, jz).scale(.1f).scale(pixelWidth);
           direction = direction.plus(jitter).normalize();
 
           Ray ray = new Ray(origin, direction);
@@ -62,6 +62,9 @@ public class Scene {
           Vector3 closestNormal = null;
 
           for (var i = 0; i < meshes.length; i++) {
+            if(x == 64 && y == 64 && i == 9){
+              System.out.println("Debug");
+            }
             var mesh = meshes[i];
             var material = mesh.material;
             var geometry = mesh.geometry;
