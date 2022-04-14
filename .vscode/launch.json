@@ -6,17 +6,9 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Launch Main",
+      "name": "Launch Current File",
       "request": "launch",
-      "mainClass": "Main",
-      "projectName": "raytracer_9b2e1ccc"
-    },
-    {
-      "type": "java",
-      "name": "Launch Main",
-      "request": "launch",
-      "mainClass": "Main",
-      "projectName": "raytracer_98da2e8f"
+      "mainClass": "${file}"
     }
   ]
 }
