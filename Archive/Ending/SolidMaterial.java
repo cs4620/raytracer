@@ -4,7 +4,7 @@ public class SolidMaterial implements Material {
   public SolidMaterial(Vector3 color){
     this.color = color;
   }
-  public Vector3 Shade(Vector3 fromDirection, Vector3 position, Vector3 normal, DirectionalLight directionalLight){
+  public Vector3 Shade(Vector3 fromDirection, Vector3 position, Vector3 normal, DirectionalLight directionalLight, Scene scene){
     return this.color;
   }
   

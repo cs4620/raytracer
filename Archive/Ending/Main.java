@@ -22,30 +22,6 @@ class Main {
 
       BufferedImage outImage = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
 
-      // Create our geometry
-
-      var pointOne = new Vector3(0, 0, 0);
-      var pointTwo = new Vector3(1, 0, 0);
-      var pointThree = new Vector3(0, 1, 0);
-      var triangle = new Triangle(pointOne, pointTwo, pointThree);
-
-      var plane1 = new Plane(new Vector3(0, 1, 0), 1);
-      var plane2 = new Plane(new Vector3(0, -1 / Math.sqrt(2), -1 / Math.sqrt(2)), 1);
-
-      var sphere1 = new Sphere(new Vector3(0, 0, 0), .5f);
-
-      var material1 = new SolidMaterial(new Vector3(0, 1, 0));
-      var material2 = new SolidMaterial(new Vector3(1, 0, 0));
-      var material3 = new SolidMaterial(new Vector3(0, 0, 1));
-      var phong = new PhongMaterial(new Vector3(0, 0, 1));
-
-      var planeMesh1 = new Mesh(plane1, material1);
-      var planeMesh2 = new Mesh(plane2, material2);
-
-      var sphereMesh1 = new Mesh(sphere1, phong);
-
-      var triangleMesh = new Mesh(triangle, material1);
-
       // Camera points
       var cameraOrigin = new Vector3(0, 0, -1);
       var cameraLookAt = new Vector3(0, 0, 0);
@@ -55,9 +31,7 @@ class Main {
       var camera = new Camera(cameraOrigin, cameraLookAt, cameraLookUp, halfWidth);
 
       // Light points
-      // var light = new DirectionalLight(new Vector3(1, 1, -1).normalize(), 1);
-      var light = new DirectionalLight(new Vector3(0, 0, -1).normalize(), 1);
-
+      
       // Load an obj
       List<Triangle> objTriangles = new ArrayList<>();
       List<Vector3> vertices = new ArrayList<>();
@@ -89,18 +63,19 @@ class Main {
       Triangle[] allObjTriangles = objTriangles.toArray(new Triangle[0]);
       Mesh[] allObjMeshes = new Mesh[allObjTriangles.length];
       for (var i = 0; i < allObjTriangles.length; i++) {
-        var mesh = new Mesh(allObjTriangles[i], phong);
+        var mesh = new Mesh(allObjTriangles[i], Materials.phong);
         allObjMeshes[i] = mesh;
       }
 
       List<Mesh> meshes = new ArrayList<>();
-      meshes.add(planeMesh1);
-      meshes.add(sphereMesh1);
+      meshes.add(Meshes.planeMesh1);
+      meshes.add(Meshes.sphereMesh1);
+      // meshes.add(sphereMesh2);
       // meshes.addAll(allObjMeshes);
       // Collections.addAll(meshes, allObjMeshes);
       Mesh[] allMeshes = meshes.toArray(new Mesh[0]);
 
-      var scene = new Scene(new DirectionalLight[] { light }, camera,
+      var scene = new Scene(new DirectionalLight[] { Lights.fromAbove }, camera,
           // new Mesh[] {
           // // planeMesh1,
           // // planeMesh2,

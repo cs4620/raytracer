@@ -1,7 +1,7 @@
-public class PhongMaterial implements Material{
+public class ReflectiveMaterial implements Material{
   private Vector3 color;
 
-  public PhongMaterial(Vector3 color){
+  public ReflectiveMaterial(Vector3 color){
     this.color = color;
   }
   public Vector3 Shade(Vector3 fromDirection, Vector3 position, Vector3 normal, DirectionalLight directionalLight, Scene scene){

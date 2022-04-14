@@ -20,9 +20,7 @@ public class Scene {
 
     for (var y = 0; y < outImage.getHeight(); y++) {
       for (var x = 0; x < outImage.getWidth(); x++) {
-        if (y == 64 && x == 64) {
-          System.out.println("Stop");
-        }
+        
         this.colors[x][y] = new Vector3(0, 0, 0);
 
         var samples = 1;
@@ -87,14 +85,20 @@ public class Scene {
           // }
           // }
 
-          
-
+          if (y == 35 && x == 64) {
+            System.out.println("Stop");
+          }
           if (intersection == null || intersection.mesh == null || intersection.normal == null)
             colors[x][y] = colors[x][y].plus(new Vector3(0, 0, 0));
           else {
             var collisionPosition = ray.origin.plus(ray.direction.scale(intersection.t));
-            var closestColor = intersection.mesh.material.Shade(ray.origin.minus(collisionPosition), collisionPosition,
-                intersection.normal, lights[0]);
+            var fromDirection = ray.origin.minus(collisionPosition).normalize();
+            var closestColor = intersection.mesh.material.Shade(
+                fromDirection,
+                collisionPosition,
+                intersection.normal, 
+                lights[0],
+                this);
 
             colors[x][y] = colors[x][y].plus(closestColor);
           }
@@ -132,6 +136,8 @@ public class Scene {
         var fromDirection = ray.origin.minus(closestPoint).normalize();
       }
     }
+    if (closestMesh == -1)
+      return null;
     return new Intersection(
         closestDistance,
         closestNormal,
