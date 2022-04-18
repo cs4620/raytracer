@@ -17,13 +17,13 @@ class Main {
       long startTime = System.currentTimeMillis();
       System.out.println("Up and running");
 
-      var width = 128;
-      var height = 128;
+      var width = 512;
+      var height = 512;
 
       BufferedImage outImage = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
 
       // Camera points
-      var cameraOrigin = new Vector3(0, 0, -1);
+      var cameraOrigin = new Vector3(.0f, 0f, -1f);
       var cameraLookAt = new Vector3(0, 0, 0);
       var cameraLookUp = new Vector3(0, 1, 0);
       var halfWidth = Math.PI / 4;
@@ -31,7 +31,7 @@ class Main {
       var camera = new Camera(cameraOrigin, cameraLookAt, cameraLookUp, halfWidth);
 
       // Light points
-      
+
       // Load an obj
       List<Triangle> objTriangles = new ArrayList<>();
       List<Vector3> vertices = new ArrayList<>();
@@ -47,7 +47,7 @@ class Main {
             vertices.add(vertex);
           } else if (line.startsWith("f ")) {
             String[] firstParts = line.split(" ");
-            
+
             var indexOne = Integer.parseInt(firstParts[1].split("/")[0]);
             var indexTwo = Integer.parseInt(firstParts[2].split("/")[0]);
             var indexThree = Integer.parseInt(firstParts[3].split("/")[0]);
@@ -63,26 +63,22 @@ class Main {
       Triangle[] allObjTriangles = objTriangles.toArray(new Triangle[0]);
       Mesh[] allObjMeshes = new Mesh[allObjTriangles.length];
       for (var i = 0; i < allObjTriangles.length; i++) {
-        var mesh = new Mesh(allObjTriangles[i], Materials.phong);
+        var mesh = new Mesh(allObjTriangles[i], Materials.phongBlue);
         allObjMeshes[i] = mesh;
       }
 
       List<Mesh> meshes = new ArrayList<>();
       meshes.add(Meshes.planeMesh1);
       meshes.add(Meshes.sphereMesh1);
-      // meshes.add(sphereMesh2);
+      meshes.add(Meshes.sphereMesh2);
+      meshes.add(Meshes.sphereMesh3);
+      meshes.add(Meshes.sphereMesh4);
+      meshes.add(Meshes.sphereMesh5);
       // meshes.addAll(allObjMeshes);
       // Collections.addAll(meshes, allObjMeshes);
       Mesh[] allMeshes = meshes.toArray(new Mesh[0]);
 
-      var scene = new Scene(new DirectionalLight[] { Lights.fromAbove }, camera,
-          // new Mesh[] {
-          // // planeMesh1,
-          // // planeMesh2,
-          // // sphereMesh1,
-          // triangleMesh,
-          // }
-          allMeshes);
+      var scene = new Scene(new DirectionalLight[] { Lights.fromAbove }, camera, allMeshes);
 
       scene.render(outImage);
 

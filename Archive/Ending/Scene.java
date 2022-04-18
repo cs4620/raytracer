@@ -20,6 +20,10 @@ public class Scene {
 
     for (var y = 0; y < outImage.getHeight(); y++) {
       for (var x = 0; x < outImage.getWidth(); x++) {
+
+        if(x == 301 && y == 320){
+          System.out.println("Break");
+        }
         
         this.colors[x][y] = new Vector3(0, 0, 0);
 
@@ -35,6 +39,9 @@ public class Scene {
         var percentY = y / (float) outImage.getHeight();
         var scaleX = percentX * 2 - 1;
         var scaleY = percentY * 2 - 1;
+
+        scaleX *=1f;
+        scaleY *= 1f;
 
         // Invert because math and screens are opposite
         scaleY *= -1;
@@ -57,37 +64,7 @@ public class Scene {
 
           Intersection intersection = this.shootRay(ray);
 
-          // float closestDistance = Float.MAX_VALUE;
-          // Vector3 closestColor = null;
-          // Vector3 closestNormal = null;
-
-          // for (var i = 0; i < meshes.length; i++) {
-          // if(x == 64 && y == 64 && i == 9){
-          // System.out.println("Debug");
-          // }
-          // var mesh = meshes[i];
-          // var material = mesh.material;
-          // var geometry = mesh.geometry;
-
-          // // Now do the ray cast.
-
-          // Intersection tn = geometry.intersect(ray);
-          // if (tn.t <= 0)
-          // continue;
-          // if (tn.t < closestDistance) {
-          // closestDistance = tn.t;
-          // closestNormal = tn.normal;
-          // // Do the shading
-          // var closestPoint = ray.origin.plus(ray.direction.scale(tn.t));
-          // var fromDirection = ray.origin.minus(closestPoint).normalize();
-          // closestColor = material.Shade(fromDirection, closestPoint, closestNormal,
-          // lights[0]);
-          // }
-          // }
-
-          if (y == 35 && x == 64) {
-            System.out.println("Stop");
-          }
+          
           if (intersection == null || intersection.mesh == null || intersection.normal == null)
             colors[x][y] = colors[x][y].plus(new Vector3(0, 0, 0));
           else {
@@ -98,7 +75,8 @@ public class Scene {
                 collisionPosition,
                 intersection.normal, 
                 lights[0],
-                this);
+                this,
+                2);
 
             colors[x][y] = colors[x][y].plus(closestColor);
           }

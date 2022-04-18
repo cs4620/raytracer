@@ -1,7 +1,7 @@
-public class PhongMaterial implements Material{
+public class CheckeredPhong implements Material{
   private Vector3 color;
 
-  public PhongMaterial(Vector3 color){
+  public CheckeredPhong(Vector3 color){
     this.color = color;
   }
   public Vector3 Shade(Vector3 fromDirection, Vector3 position, Vector3 normal, DirectionalLight directionalLight, Scene scene, int remainingBounces){
@@ -28,7 +28,16 @@ public class PhongMaterial implements Material{
     var diffuseStrength = normal.normalize().dot(directionalLight.directionToLight.normalize());
     diffuseStrength = Math.max(0, diffuseStrength);
 
-    var diffuse = this.color.scale(diffuseStrength);
+
+    var currentColor = this.color;
+    int fx = (int)(position.x -100 + .5);
+    var fy = (int)(position.y + .5);
+    var fz = (int)(position.z + .5);
+
+    if((fx + fy + fz) % 2 == 0){
+      currentColor = Vector3.Zero;
+    }
+    var diffuse = currentColor.scale(diffuseStrength);
 
 
 

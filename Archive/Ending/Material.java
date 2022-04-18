@@ -4,6 +4,7 @@ public interface Material {
     Vector3 position, 
     Vector3 normal, 
     DirectionalLight directionalLight,
-    Scene scene);
+    Scene scene,
+    int remainingBounces);
   
 }

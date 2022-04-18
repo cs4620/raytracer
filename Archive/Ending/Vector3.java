@@ -1,5 +1,7 @@
 public class Vector3 {
 
+  static Vector3 Zero = new Vector3(0,0,0);
+
   public float x, y, z;
 
   public Vector3(float x, float y, float z) {
